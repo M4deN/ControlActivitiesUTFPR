@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ControleActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Disciplina" />
+
+        <EditText
+            android:id="@+id/editTextNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="28dp"
+            android:ems="10"
+            android:inputType="textPersonName|textCapWords" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Período
+" />
+
+        <EditText
+            android:id="@+id/editTextPeriodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="28dp"
+            android:ems="10"
+            android:inputType="textPersonName|textCapWords" />
+
+        <TextView
+            android:id="@+id/textViewPeriodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/selecione_o_campus" />
+
+        <Spinner
+            android:id="@+id/spinnerCampus"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:entries="@array/campus"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="19dp"
+            android:text="Selecione o Tipo do Curso"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupPeriodos"
+            android:layout_width="381dp"
+            android:layout_height="179dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="8dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonPrimeiro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bacharelado" />
+
+            <RadioButton
+                android:id="@+id/radioButtonSegundo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Licenciatura" />
+
+            <RadioButton
+                android:id="@+id/radioButtonTerceiro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tecnologo" />
+
+        </RadioGroup>
+        <TextView
+            android:id="@+id/textViewTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="19dp"
+            android:text="Selecione Uma Opção" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/aluno" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMonitor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Monitor" />
+
+    </LinearLayout>
+</ScrollView>
