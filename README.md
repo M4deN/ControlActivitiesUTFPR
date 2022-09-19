@@ -30,7 +30,7 @@ Desenvolido todo em java Android Studio.</p>
 <h3>Tela Principal:</h3>
 
 
-![Começo](https://github.com/AlexDeSaran/Projeto_3D/blob/main/img.png)
+![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/print.png)
 
 ##### Autor do Projeto: Alécio L. Medeiros
 
