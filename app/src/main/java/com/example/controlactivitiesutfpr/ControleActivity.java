@@ -58,7 +58,7 @@ public class ControleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listagem);
+        setContentView(R.layout.activity_controle);
 
 
         cbMonitor = findViewById(R.id.checkBoxMonitor);

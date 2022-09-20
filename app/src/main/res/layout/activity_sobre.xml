@@ -26,7 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Aplicativo para Controle de Atividades da UTFPR"
+        android:text="@string/aplicativo_para_controle_de_atividades_da_utfpr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.311"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Autor: Alécio L. Medeiros"
+        android:text="@string/autor_al_cio_l_medeiros"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewObjetivo" />
@@ -51,7 +51,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Versão 1.0"
+        android:text="@string/vers_o_1_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAutor" />

@@ -18,7 +18,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="Disciplina" />
+            android:text="@string/disciplina" />
 
         <EditText
             android:id="@+id/editTextNome"
@@ -35,8 +35,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="Período
-" />
+            android:text="@string/periodos" />
 
         <EditText
             android:id="@+id/editTextPeriodo"
@@ -71,7 +70,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="19dp"
-            android:text="Selecione o Tipo do Curso"/>
+            android:text="@string/selecione_o_tipo_do_curso"/>
 
         <RadioGroup
             android:id="@+id/radioGroupPeriodos"
@@ -86,19 +85,19 @@
                 android:id="@+id/radioButtonPrimeiro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bacharelado" />
+                android:text="@string/bacharelados" />
 
             <RadioButton
                 android:id="@+id/radioButtonSegundo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Licenciatura" />
+                android:text="@string/licenciaturas" />
 
             <RadioButton
                 android:id="@+id/radioButtonTerceiro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tecnologo" />
+                android:text="@string/tecnologos" />
 
         </RadioGroup>
         <TextView
@@ -108,7 +107,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="19dp"
-            android:text="Selecione Uma Opção" />
+            android:text="@string/selecione_uma_opcaos" />
 
         <CheckBox
             android:id="@+id/checkBoxAluno"
@@ -122,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="Monitor" />
+            android:text="@string/monitors" />
 
     </LinearLayout>
 </ScrollView>
