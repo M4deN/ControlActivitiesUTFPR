@@ -31,6 +31,9 @@ Desenvolido todo em java Android Studio.</p>
 
 
 ![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/print.png)
+<h3>dark mode:</h3>
+
+![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/dark.png)
 
 ##### Autor do Projeto: Alécio L. Medeiros
 
