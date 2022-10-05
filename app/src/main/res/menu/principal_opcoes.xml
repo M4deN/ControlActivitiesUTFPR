@@ -12,4 +12,10 @@
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="Sobre"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/switch_no_menu"
+        android:title="switch_no_menu"
+        app:actionLayout="@layout/switch_action_bar"
+        app:showAsAction="ifRoom"
+        />
 </menu>

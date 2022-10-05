@@ -63,4 +63,6 @@
     <string name="autor_al_cio_l_medeiros">Author: Alécio L. Medeiros</string>
     <string name="vers_o_1_0">" Version 1.0"</string>
     <string name="Control">Control Activities</string>
+    <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
+    <string name="description">Description: Application to control activities and tests of UTFPR subjects</string>
 </resources>

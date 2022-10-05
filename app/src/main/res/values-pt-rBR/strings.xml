@@ -64,4 +64,6 @@
     <string name="autor_al_cio_l_medeiros">Autor: Alécio L. Medeiros</string>
     <string name="vers_o_1_0">Versão 1.0</string>
     <string name="Control">Controle de Atividades UTFPR</string>
+    <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
+    <string name="description">Descrição:Aplicativo para controle de atividades e provas de disciplinas da UTFPR</string>
 </resources>

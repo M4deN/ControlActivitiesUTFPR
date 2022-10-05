@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
+    <string name="description">Description: Application to control activities and tests of UTFPR subjects</string>
+</resources>

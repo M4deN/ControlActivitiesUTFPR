@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ControleActivity"
+    android:id="@+id/scroll_view_controle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".ControleActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,8 +49,8 @@
             android:id="@+id/textViewPeriodo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:text="@string/selecione_o_campus" />
 
@@ -61,16 +60,16 @@
             android:layout_height="48dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:entries="@array/campus"/>
+            android:entries="@array/campus" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="19dp"
-            android:text="@string/selecione_o_tipo_do_curso"/>
+            android:text="@string/selecione_o_tipo_do_curso" />
 
         <RadioGroup
             android:id="@+id/radioGroupPeriodos"
@@ -100,12 +99,13 @@
                 android:text="@string/tecnologos" />
 
         </RadioGroup>
+
         <TextView
             android:id="@+id/textViewTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="19dp"
             android:text="@string/selecione_uma_opcaos" />
 
