@@ -19,10 +19,7 @@ Desenvolido todo em java Android Studio.</p>
 
 <h2 Requisitos Minimos para Rodar o APP.</h2>
 
-	O Android Studio Chipmunk 2021.2.1 ou superior (apenas versões estáveis);
-	Versão do Gradle específica da versão do Android Studio utilizada;
-	Minimum API Level 16 (minSdkVersion 16 no build.gradle (Module: app), que irá alterar a geração do AndroidManifest.xml);
-	targetSDK Version para a API Level 30 (Android 11.0) ou superior.
+	
 
 <h2 id="tecnologias">Tecnologias Usadas:</h2>
 
