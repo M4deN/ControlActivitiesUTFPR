@@ -20,9 +20,7 @@ Desenvolido todo em java Android Studio.</p>
 <h2 id="tecnologias">Tecnologias Usadas:</h2>
 
 <p>
-  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-plain.svg" alt="VSCode" width="40" height="40"/><img                                                                                                                          
- 
-</p>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-plain.svg" alt="VSCode" width="40" height="40"/><img                                       </p>
 
 <h2 id="sessao">Sessão do Projeto:</h2>
 
@@ -30,17 +28,24 @@ Desenvolido todo em java Android Studio.</p>
 
 
 ![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/print.png)
+
+<p>
 <h3>DARK MODE:</h3>
 Implementação de datas, Spinner Calendário.
+</p>
 
 ![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/dark.png)
 
-###### Requisitos Minimos para Rodar o APP.
+ <h4> Requisitos Minimos para Rodar o APP.</h4>
 
-O Android Studio Chipmunk 2021.2.1 ou superior (apenas versões estáveis);
-Versão do Gradle específica da versão do Android Studio utilizada;
-Minimum API Level 16 (minSdkVersion 16 no build.gradle (Module: app), que irá alterar a geração do AndroidManifest.xml);
-targetSDK Version para a API Level 30 (Android 11.0) ou superior.
+<ul>
+ <li> O Android Studio Chipmunk 2021.2.1 ou superior (apenas versões estáveis)</li>
+ <li> Versão do Gradle específica da versão do Android Studio utilizada</li> 
+ <li> Minimum API Level 16 (minSdkVersion 16 no build.gradle (Module: app), que irá alterar a geração do AndroidManifest.xml)</li>
+ <li> TargetSDK Version para a API Level 30 (Android 11.0) ou superior.</li> 
+</ul>
+
+
 
 ##### Autor do Projeto: Alécio L. Medeiros
 
