@@ -17,6 +17,8 @@
 <p>Esse projeto Foi desenvolvido para a disciplina de desenvolvimento de programação de dispositivos móveis, a primeira parte da discplina consiste em desenvolver um aplicativo menor sem a utilização de banco de dados, salvando tudo em memória, até por isso um dos requisitos desse primeiro projeto é o de ser algo para uso pessoal.
 Desenvolido todo em java Android Studio.</p>
 
+
+
 <h2 Requisitos Minimos para Rodar o APP.</h2>
 
 	
@@ -36,7 +38,9 @@ Desenvolido todo em java Android Studio.</p>
 ![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/print.png)
 <h3>DARK MODE:</h3>
 Implementação de datas, Spinner Calendário.
+
 ![Começo](https://github.com/AlexDeSaran/ControlActivitiesUTFPR/blob/main/dark.png)
+
 
 ##### Autor do Projeto: Alécio L. Medeiros
 
