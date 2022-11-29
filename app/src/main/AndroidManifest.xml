@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.controlactivitiesutfpr">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -13,19 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlActivitiesUTFPR"
         tools:targetApi="31">
-        <activity android:name=".SobreActivity"
-                  android:parentActivityName=".PrincipalActivity"></activity>
+        <activity
+            android:name=".CampuActivity"
+            android:exported="true"
+            android:parentActivityName=".CampusActivity"/>
+        <activity
+            android:name=".CampusActivity"
+            android:exported="true"
+            android:parentActivityName=".PrincipalActivity"/>
+
+        <activity
+            android:name=".SobreActivity"
+            android:parentActivityName=".PrincipalActivity" />
         <activity
             android:name=".PrincipalActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControleActivity"
-                  android:parentActivityName=".ControleActivity"></activity>
+        <activity
+            android:name=".ControleActivity"
+            android:parentActivityName=".PrincipalActivity" />
     </application>
 
 </manifest>

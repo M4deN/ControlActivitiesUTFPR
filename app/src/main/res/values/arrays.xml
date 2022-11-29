@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="campus">
-        <item>@string/selecione</item>
         <item>@string/apucarana</item>
         <item>@string/campomourao</item>
         <item>@string/cornelio</item>
         <item>@string/curitiba</item>
         <item>@string/doisvizinhos</item>
         <item>@string/francisco</item>
-        <item>@string/doisvizinhos</item>
         <item>@string/guarapuava</item>
         <item>@string/londrina</item>
         <item>@string/medianeira</item>

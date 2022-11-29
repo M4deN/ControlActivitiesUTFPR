@@ -1,129 +1,89 @@
 package com.example.controlactivitiesutfpr;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Switch;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+import com.example.controlactivitiesutfpr.Model.Controle;
+import com.example.controlactivitiesutfpr.Persistencia.ControleDatabase;
+import com.example.controlactivitiesutfpr.Utils.UtilsGUI;
+
+import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity {
 
     private ListView listViewCadastro;
     private ArrayAdapter <Controle> listaAdapter;
-    private ArrayList<Controle> listaControle;
+    private List<Controle> listaControle;
 
     private static final String ARQUIVO = "com.example.controlactivitiesutfpr.PREFERENCIAS_MODE";
-    private ActionMode actionMode;
-    private int posicaoSelecionada = -1;
-    private View viewSelecionada;
     private boolean darkMode = false;
     private static final String MODO_NOTURNO = "MODO_NOTURNO";
+    private static final int REQUEST_NOVO_CADASTRO = 1;
+    private static final int REQUEST_ALTERAR_CADASTRO = 2;
 
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-            MenuInflater inflate = mode.getMenuInflater();
-            inflate.inflate(R.menu.principal_item_selecionado,menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem menuItem) {
-
-            switch (menuItem.getItemId()){
-
-                case R.id.menuItemAlterar:
-                    alterarCadastro();
-                    mode.finish();
-                    return true;
-
-                case R.id.menuItemExcluir:
-                    excluirCadastro();
-                    mode.finish();
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            if(viewSelecionada != null){
-                viewSelecionada.setBackgroundColor(Color.TRANSPARENT);
-            }
-            actionMode = null;
-            viewSelecionada = null;
-            listViewCadastro.setEnabled(true);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        listViewCadastro = findViewById(R.id.listViewCadastro);
+
+        listViewCadastro = findViewById(R.id.listViewCampus);
 
         lerPreferencia();
 
-        listViewCadastro.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        listViewCadastro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        posicaoSelecionada = position;
-                        alterarCadastro();
+                Controle controle = (Controle) parent.getItemAtPosition(position);
+
+                ControleActivity.alterarCadastro(PrincipalActivity.this, REQUEST_ALTERAR_CADASTRO, controle);
+            }
+        });
+        carregaLista();
+
+        registerForContextMenu(listViewCadastro);
+
+    }
+
+    private void carregaLista(){
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ControleDatabase database = ControleDatabase.getDatabase(PrincipalActivity.this);
+
+                listaControle = database.controleDAO().queryAll();
+
+                PrincipalActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listaAdapter = new ArrayAdapter<>(PrincipalActivity.this, android.R.layout.simple_list_item_1, listaControle);
+
+                        listViewCadastro.setAdapter(listaAdapter);
                     }
                 });
-        listViewCadastro.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-        listViewCadastro.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        if(actionMode != null){
-                            return false;
-                        }
-                        posicaoSelecionada = position;
-                        view.setBackgroundColor(Color.LTGRAY);
-                        viewSelecionada = view;
-                        listViewCadastro.setEnabled(false);
-                        actionMode = startActionMode(mActionModeCallback);
-                        return true;
-                    }
-                });
-
-        popularLista();
+            }
+        });
     }
 
     private void lerPreferencia(){
@@ -158,10 +118,44 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
 
-    private void excluirCadastro(){
+    private void excluirCadastro(final Controle controle){
 
-        listaControle.remove(posicaoSelecionada);
-        listaAdapter.notifyDataSetChanged();
+        String mensagem = getString(R.string.deseja_apagar) + "\n" + controle.getDisciplina();
+
+        DialogInterface.OnClickListener listener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch(which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                    ControleDatabase database = ControleDatabase.getDatabase(PrincipalActivity.this);
+
+                                    database.controleDAO().delete(controle);
+
+                                    PrincipalActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            listaAdapter.remove(controle);
+                                    }
+                                });
+                                    }
+                                });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+        UtilsGUI.confirmaAcao(this, mensagem, listener);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,6 +180,31 @@ public class PrincipalActivity extends AppCompatActivity {
         return true;
     }
 
+    private void verificaCampus(){
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ControleDatabase database = ControleDatabase.getDatabase(PrincipalActivity.this);
+
+                int total = database.campusDao().total();
+
+                if (total == 0){
+
+                   PrincipalActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            UtilsGUI.avisoErro(PrincipalActivity.this, R.string.selecione_o_campus);
+                        }
+                    });
+
+                    return;
+                }
+
+                ControleActivity.novoCadastro(PrincipalActivity.this, REQUEST_NOVO_CADASTRO);
+            }
+        });
+    }
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
 
@@ -197,11 +216,35 @@ public class PrincipalActivity extends AppCompatActivity {
         return true;
     }
 
-    private void alterarCadastro(){
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
 
-        Controle controle = listaControle.get(posicaoSelecionada);
+        getMenuInflater().inflate(R.menu.item_selecionado, menu);
+    }
 
-        ControleActivity.alterarCadastro(this,controle);
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info;
+
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        Controle controle = (Controle) listViewCadastro.getItemAtPosition(info.position);
+
+        switch(item.getItemId()){
+
+            case R.id.menuItemAbrir:
+                ControleActivity.alterarCadastro(this, REQUEST_ALTERAR_CADASTRO, controle);
+                return true;
+
+            case R.id.menuItemApagar:
+                excluirCadastro(controle);
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     @Override
@@ -209,13 +252,16 @@ public class PrincipalActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menuItemAdicionar:
-                ControleActivity.novoCadastro(this);
+                verificaCampus();
                 return true;
             case R.id.menuItemSobre:
                 SobreActivity.sobre(this);
                 return true;
             case R.id.switch_action_bar_switch:
                 salvarPreferencia(darkMode);
+                return true;
+            case R.id.menuItemCampus:
+                CampusActivity.abrir(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -224,53 +270,15 @@ public class PrincipalActivity extends AppCompatActivity {
 
     }
 
-    private void popularLista(){
-
-        listaControle = new ArrayList<>();
-        listaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaControle);
-        listViewCadastro.setAdapter(listaAdapter);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == Activity.RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            super.onActivityResult(requestCode, resultCode, data);
-            Bundle bundle = data.getExtras();
+        if ((requestCode == REQUEST_NOVO_CADASTRO || requestCode == REQUEST_ALTERAR_CADASTRO) && resultCode == Activity.RESULT_OK) {
 
-            String nome = bundle.getString(ControleActivity.NOME);
-            String periodo = bundle.getString(ControleActivity.PERIODO);
-            int tipo = bundle.getInt(ControleActivity.TIPO);
-            boolean aluno = bundle.getBoolean(ControleActivity.ALUNO);
-            boolean monitor = bundle.getBoolean(ControleActivity.MONITOR);
-            String campus = bundle.getString(ControleActivity.CAMPUS);
-
-            if(requestCode == ControleActivity.ALTERAR){
-
-                Controle controle = listaControle.get(posicaoSelecionada);
-
-                controle.setDisciplina(nome);
-                controle.setPeriodo(periodo);
-                controle.setCampus(campus);
-                controle.setTipo(tipo);
-                controle.setAluno(aluno);
-                controle.setMonitor(monitor);
-
-               posicaoSelecionada = -1;
-
-            }else {
-
-                listaControle.add(new Controle(nome, periodo, tipo, aluno, monitor, campus));
-
-            }
-
-            listaAdapter.notifyDataSetChanged();
-
+            carregaLista();
         }
+    }
 
-    }
-        public void abrirSobre(View view){
-            SobreActivity.sobre(this);
-    }
 }

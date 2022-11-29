@@ -65,4 +65,32 @@
     <string name="Control">Control Activities</string>
     <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
     <string name="description">Description: Application to control activities and tests of UTFPR subjects</string>
+    <string name="deseja_apagar">Do you want to Erase?</string>
+    <string name="campus_ja_cadastrado">Campus name already registered</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
+    <string name="abrir">abrir</string>
+    <string name="apagar">Delete</string>
+    <string name="novos">New</string>
+    <string name="cadastro_alterar">Change Registration</string>
+    <string name="novo_campus">" New Campus"</string>
+    <string name="alterar_campus">" Change Campus"</string>
+    <string name="campus_em_uso">" Campus is in use, cannot be deleted!"</string>
+    <string name="erro">Error</string>
+    <string name="sim">Yes</string>
+    <string name="nao">No</string>
+    <string name="confirmacao">Confirmation</string>
+    <string name="ok">OK</string>
+    <string name="disc_vazia">" Empty Discipline!"</string>
+    <string name="campus_title">Campus</string>
+    <plurals name="datas">Date
+        <item quantity="one">%d year.</item>
+        <item quantity="other">%d years.</item>
+    </plurals>
+    <string name="cadastro_novo">" New Register"</string>
+    <string name="novo_c_mpus">New Campus</string>
+    <string name="date">Date</string>
+    <string name="data_registro">Data Record</string>
+    <string name="abrir_edit">Open</string>
+    <string name="apagar_edit">Delete</string>
 </resources>

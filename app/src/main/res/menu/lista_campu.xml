@@ -1,0 +1,19 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuItemSalvar"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/save"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuItemCancelar"
+        android:icon="@android:drawable/ic_notification_clear_all"
+        android:title="@string/cancel"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuItemLimpar"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/limpacampos"
+        app:showAsAction="always" />
+</menu>

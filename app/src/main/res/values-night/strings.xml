@@ -2,4 +2,10 @@
 <resources>
     <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
     <string name="description">Description: Application to control activities and tests of UTFPR subjects</string>
+    <string name="novo_c_mpus">Novo Câmpus</string>
+    <string name="date">Date</string>
+    <plurals name="datas">
+        <item quantity="one">%d year.</item>
+        <item quantity="other">%d years.</item>
+    </plurals>
 </resources>

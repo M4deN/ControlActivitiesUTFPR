@@ -1,65 +1,58 @@
 package com.example.controlactivitiesutfpr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class ControleActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.controlactivitiesutfpr.Model.Campus;
+import com.example.controlactivitiesutfpr.Model.Controle;
+import com.example.controlactivitiesutfpr.Persistencia.ControleDatabase;
+import com.example.controlactivitiesutfpr.Utils.UtilsDate;
+import com.example.controlactivitiesutfpr.Utils.UtilsGUI;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class ControleActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     public  static  final  String MODO = "MODO";
-    public static final String NOME = "NOME";
-    public static final String PERIODO = "PERIODO";
-    public static final String ALUNO = "ALUNO";
-    public static final String MONITOR = "MONITOR";
-    public static final String TIPO = "TIPO";
-    public static final String CAMPUS = "CAMPUS";
+    public static final String ID      = "ID";
 
     public static final int NOVO = 1;
     public static final int ALTERAR = 2;
-    private int      modo;
+    private int modo;
 
     private EditText editTextNome, editTextPeriodo;
     private RadioGroup radioGroupPeriodos;
     private CheckBox cbAluno, cbMonitor;
     private Spinner spinnerCampus1;
-    private String nomeOriginal;
-
-    public static void novoCadastro(AppCompatActivity activity){
-
-        Intent intent = new Intent(activity, ControleActivity.class);
-
-        intent.putExtra(MODO, NOVO);
-        activity.startActivityForResult(intent,NOVO);
-    }
-    public static void alterarCadastro(AppCompatActivity activity, Controle controle){
-
-        Intent intent = new Intent(activity, ControleActivity.class);
-
-        intent.putExtra(MODO,ALTERAR);
-        intent.putExtra(NOME, controle.getDisciplina());
-        intent.putExtra(PERIODO,controle.getPeriodo());
-        intent.putExtra(TIPO, controle.getTipo());
-        intent.putExtra(ALUNO, controle.isAluno());
-        intent.putExtra(MONITOR, controle.isMonitor());
-        intent.putExtra(CAMPUS, controle.getCampus());
-
-        activity.startActivityForResult(intent, ALTERAR);
-    }
+    private Controle controle;
+    private List<Campus> listaCampus;
+    private Calendar calendarDataAtividade;
+    private TextView Data;
+    private EditText editTextData;
+    private TextView textViewDataCadastro;
+    private EditText editTextDataCadastro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controle);
-
 
         cbMonitor = findViewById(R.id.checkBoxMonitor);
         cbAluno = findViewById(R.id.checkBoxAluno);
@@ -67,102 +60,135 @@ public class ControleActivity extends AppCompatActivity {
         editTextPeriodo = findViewById(R.id.editTextPeriodo);
         radioGroupPeriodos = findViewById(R.id.radioGroupPeriodos);
         spinnerCampus1 = findViewById(R.id.spinnerCampus);
+        Data = findViewById(R.id.Data);
+        editTextData = findViewById(R.id.editTextData);
+        textViewDataCadastro   = findViewById(R.id.textViewDataCadastro);
+        editTextDataCadastro   = findViewById(R.id.editTextDataCadastro);
+
+        editTextDataCadastro.setEnabled(false);
 
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
 
-        if(bundle != null){
-            modo = bundle.getInt(MODO, NOVO);
+        final Bundle bundle = intent.getExtras();
+        modo = bundle.getInt(MODO, NOVO);
 
-            if(modo == NOVO){
-                setTitle(getString(R.string.tela_novo_cadastro));
-            }else {
-                nomeOriginal = bundle.getString(NOME);
-                editTextNome.setText(nomeOriginal);
+        calendarDataAtividade = Calendar.getInstance();
+        calendarDataAtividade.add(Calendar.YEAR,- getResources().getInteger(R.integer.anos_para_tras));
 
-                String periodo = bundle.getString(PERIODO);
-                editTextPeriodo.setText(periodo);
+        editTextData.setFocusable(false);
+        editTextData.setOnClickListener(new View.OnClickListener() {
 
-                int tipo = bundle.getInt(TIPO);
+            @Override
+            public void onClick(View v) {
+                        DatePickerDialog picker = new DatePickerDialog(ControleActivity.this, R.style.CustomDatePickerDialogTheme, ControleActivity.this,
+                        calendarDataAtividade.get(Calendar.YEAR),
+                        calendarDataAtividade.get(Calendar.MONTH),
+                        calendarDataAtividade.get(Calendar.DAY_OF_MONTH));
 
-                RadioButton button;
-
-                switch (tipo){
-                    case Controle.BACHARELADO:
-                        button = findViewById(R.id.radioButtonPrimeiro);
-                        button.setChecked(true);
-                        break;
-                    case Controle.LICENCIATURA:
-                        button = findViewById(R.id.radioButtonSegundo);
-                        button.setChecked(true);
-                        break;
-                    case Controle.TECNOLOGO:
-                        button = findViewById(R.id.radioButtonTerceiro);
-                        button.setChecked(true);
-                        break;
-                }
-
-                boolean aluno = bundle.getBoolean(ALUNO);
-                cbAluno.setChecked(aluno);
-                boolean monitor = bundle.getBoolean(MONITOR);
-                cbMonitor.setChecked(monitor);
-
-                String campus = bundle.getString(CAMPUS);
-
-                for(int pos = 0; 0 < spinnerCampus1.getAdapter().getCount(); pos++){
-
-                    String valor = (String) spinnerCampus1.getItemAtPosition(pos);
-
-                    if(valor.equals(campus)){
-                        spinnerCampus1.setSelection(pos);
-                        break;
-                    }
-                }
-                setTitle(getString(R.string.alterar_cadastro));
+                picker.show();
             }
+        });
+        carregaCampus();
+
+        if (modo == ALTERAR){
+
+            editTextNome.requestFocus();
+            setTitle(getString(R.string.cadastro_alterar));
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    int id = bundle.getInt(ID);
+
+                    ControleDatabase database = ControleDatabase.getDatabase(ControleActivity.this);
+
+                    controle = database.controleDAO().queryForId(id);
+
+                    ControleActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            editTextNome.setText(controle.getDisciplina());
+                            editTextPeriodo.setText(String.valueOf(controle.getPeriodo()));
+
+                            calendarDataAtividade.setTime(controle.getDataAtividade());
+                            String textoData = UtilsDate.formatDate(ControleActivity.this, controle.getDataAtividade());
+
+                            editTextData.setText(textoData);
+
+                            textoData = UtilsDate.formatDate(ControleActivity.this, controle.getDataCadastro());
+
+
+                            editTextDataCadastro.setText(textoData);
+                            int tipo = controle.getTipo();
+
+                            RadioButton button;
+                            switch (tipo) {
+                                case Controle.BACHARELADO:
+                                    button = findViewById(R.id.radioButtonPrimeiro);
+                                    button.setChecked(true);
+                                    break;
+
+                                case Controle.LICENCIATURA:
+                                    button = findViewById(R.id.radioButtonSegundo);
+                                    button.setChecked(true);
+                                    break;
+                                case Controle.TECNOLOGO:
+                                    button = findViewById(R.id.radioButtonTerceiro);
+                                    button.setChecked(true);
+                                    break;
+                            }
+                            cbAluno.setChecked(controle.isAluno());
+                            cbMonitor.setChecked(controle.isMonitor());
+
+                            int posicao = posicaoCampus(controle.getCampusId());
+                            spinnerCampus1.setSelection(posicao);
+                       }
+                   });
+                }
+           });
+
+        }else{
+
+            setTitle(getString(R.string.cadastro_novo));
+
+            controle = new Controle("");
+
+            textViewDataCadastro.setVisibility(View.INVISIBLE);
+            editTextDataCadastro.setVisibility(View.INVISIBLE);
         }
-        editTextNome.requestFocus();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cadastro_opcoes,menu);
+        getMenuInflater().inflate(R.menu.edicao_detalhes,menu);
         return true;
-    }
-
-    public void limparCampos(){
-        editTextNome.setText(null);
-        editTextPeriodo.setText(null);
-        radioGroupPeriodos.clearCheck();
-        spinnerCampus1.setSelection(0);
-        cbAluno.setChecked(false);
-        cbMonitor.setChecked(false);
-        Toast.makeText(this, R.string.limpacampos, Toast.LENGTH_SHORT).show();
     }
 
     private void cancelar(){
         setResult(Activity.RESULT_CANCELED);
         finish();
     }
-    public void salvar(){
+    public void salvar() {
 
-        String nome = editTextNome.getText().toString();
+        String nome = UtilsGUI.validaCampoTexto(this, editTextNome, R.string.disc_vazia);
 
-        if(nome == null || nome.trim().isEmpty()){
-            Toast.makeText(this, R.string.discplina_vazio,Toast.LENGTH_SHORT).show();
-            editTextNome.requestFocus();
+        if (nome == null) {
             return;
         }
-        String periodotext = editTextPeriodo.getText().toString();
+        String periodotext = UtilsGUI.validaCampoTexto(this, editTextPeriodo, R.string.periodo_vazio);
 
-        if(periodotext == null || periodotext.trim().isEmpty()){
-            Toast.makeText(this, R.string.periodo_vazio,Toast.LENGTH_SHORT).show();
-            editTextPeriodo.requestFocus();
+        if (periodotext == null || periodotext.trim().isEmpty()) {
             return;
         }
+        String txtData = UtilsGUI.validaCampoTexto(this, editTextData, R.string.erro);
+        if (txtData == null){
+            return;
+        }
+
         int tipo;
-        switch (radioGroupPeriodos.getCheckedRadioButtonId()){
+
+        switch (radioGroupPeriodos.getCheckedRadioButtonId()) {
             case R.id.radioButtonPrimeiro:
                 tipo = Controle.BACHARELADO;
                 break;
@@ -173,30 +199,116 @@ public class ControleActivity extends AppCompatActivity {
                 tipo = Controle.TECNOLOGO;
                 break;
             default:
-                Toast.makeText(this, R.string.modalidade_vazia, Toast.LENGTH_SHORT).show();
-                return;
+                tipo = -1;
+        }
+        if(tipo ==-1){
+            return;
+
         }
         boolean aluno = cbAluno.isChecked();
         boolean monitor = cbMonitor.isChecked();
 
-        String campus = (String) spinnerCampus1.getSelectedItem();
+        Campus campus = (Campus) spinnerCampus1.getSelectedItem();
 
-        if(campus == "Selecione"){
-            Toast.makeText(this, R.string.campus_vazio,Toast.LENGTH_SHORT).show();
-            return;
+        if (campus != null){
+
+            controle.setCampusId(campus.getId());
         }
 
-        Intent intent = new Intent();
-        intent.putExtra(NOME,nome);
-        intent.putExtra(PERIODO,periodotext);
-        intent.putExtra(TIPO,tipo);
-        intent.putExtra(ALUNO,aluno);
-        intent.putExtra(MONITOR,monitor);
-        intent.putExtra(CAMPUS,campus);
+        controle.setDisciplina(nome);
+        controle.setPeriodo(periodotext);
+        controle.setTipo(tipo);
+        controle.setMonitor(monitor);
+        controle.setAluno(aluno);
+        controle.setDataAtividade(calendarDataAtividade.getTime());
 
-        setResult(Activity.RESULT_OK,intent);
-        finish();
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                ControleDatabase database = ControleDatabase.getDatabase(ControleActivity.this);
+
+                if (modo == NOVO) {
+
+                    controle.setDataCadastro(new Date());
+
+                    database.controleDAO().insert(controle);
+
+                } else {
+
+                    database.controleDAO().update(controle);
+                }
+
+                setResult(Activity.RESULT_OK);
+                finish();
+            }
+        });
     }
+
+    private int posicaoCampus(int campusId){
+
+        for (int pos = 0; pos < listaCampus.size(); pos++){
+
+            Campus camp = listaCampus.get(pos);
+
+            if (camp.getId() == campusId){
+                return pos;
+            }
+        }
+
+        return -1;
+    }
+
+    private void carregaCampus(){
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ControleDatabase database = ControleDatabase.getDatabase(ControleActivity.this);
+
+                listaCampus = database.campusDao().queryAll();
+
+                ControleActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ArrayAdapter<Campus> spinnerAdapter = new ArrayAdapter<>(ControleActivity.this, android.R.layout.simple_list_item_1, listaCampus);
+
+                        spinnerCampus1.setAdapter(spinnerAdapter);
+                    }
+                });
+            }
+        });
+    }
+
+    public static void novoCadastro(Activity activity, int requestCode){
+
+        Intent intent = new Intent(activity, ControleActivity.class);
+
+        intent.putExtra(MODO, NOVO);
+
+        activity.startActivityForResult(intent,requestCode);
+    }
+
+    public static void alterarCadastro(Activity activity, int requestCode, Controle controle){
+
+        Intent intent = new Intent(activity, ControleActivity.class);
+
+        intent.putExtra(MODO, ALTERAR);
+        intent.putExtra(ID, controle.getId());
+
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        calendarDataAtividade.set(year, month, dayOfMonth);
+
+        String textoData = UtilsDate.formatDate(this, calendarDataAtividade.getTime());
+
+        editTextData.setText(textoData);
+    }
+
     @Override
     public void onBackPressed(){
         cancelar();
@@ -210,8 +322,8 @@ public class ControleActivity extends AppCompatActivity {
             case R.id.menuItemSalvar:
                 salvar();
                 return true;
-            case R.id.menuItemLimpar:
-                limparCampos();
+            case R.id.menuItemCancelar:
+                cancelar();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

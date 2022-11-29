@@ -66,4 +66,32 @@
     <string name="Control">Controle de Atividades UTFPR</string>
     <string name="email">Email: Alecio.medeiros@alunos.utfpr.edu.br</string>
     <string name="description">Descrição:Aplicativo para controle de atividades e provas de disciplinas da UTFPR</string>
+    <string name="deseja_apagar">Deseja Apagar?</string>
+    <plurals name="datas">
+        <item quantity="one">%d year.</item>
+        <item quantity="other">%d years.</item>
+    </plurals>
+    <string name="campus_ja_cadastrado">Nome do campus ja cadastrado</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="abrir">Open</string>
+    <string name="apagar">Deletar</string>
+    <string name="novos">Novos</string>
+    <string name="cadastro_alterar">Alterar Cadastro</string>
+    <string name="cadastro_novo">Novo Cadastro</string>
+    <string name="novo_campus">Novo Campus</string>
+    <string name="alterar_campus">Alterar Campus</string>
+    <string name="campus_em_uso">Campus está em uso, não pode ser apagado!</string>
+    <string name="erro">Erro</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="disc_vazia">Disciplina Vazia!</string>
+    <string name="confirmacao">Confirmação</string>
+    <string name="ok">Ok</string>
+    <string name="campus_title">Campus</string>
+    <string name="novo_c_mpus">Novo Câmpus</string>
+    <string name="date">Data</string>
+    <string name="data_registro">Data Registro</string>
+    <string name="abrir_edit">Abrir</string>
+    <string name="apagar_edit">Apagar</string>
 </resources>
