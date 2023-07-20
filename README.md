@@ -45,18 +45,8 @@ Implementação de datas, Spinner Calendário.
  <li> TargetSDK Version para a API Level 30 (Android 11.0) ou superior.</li> 
 </ul>
 
-
-
 ##### Autor do Projeto: Alécio L. Medeiros
-
-<p> 
-  <a href="https://www.linkedin.com/in/alex-leandro-medeiros-5b68741a3/">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
-  </a> 
-  
+ 
   </a>   
   </a>   
 </p>
-
-#### Estudante De Engenharia De Software
- 
