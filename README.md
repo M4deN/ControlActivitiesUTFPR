@@ -3,19 +3,18 @@
 
 
 <h4> 
-	Projeto em Andamento
+	Projeto Finalizado
 </h4>
 
 <ul>
  <li><a href="#sobre">Sobre</a></li>
  <li><a href="#tecnologias">Tecnologias usadas</a></li> 
  <li><a href="#sessao">sessão da projeto</a></li>
- <li><a href="#autor">Autor</a></li> 
 </ul>
 
 <h2 id="sobre">Sobre</h2>
-<p>Esse projeto Foi desenvolvido para a disciplina de desenvolvimento de programação de dispositivos móveis, a primeira parte da discplina consiste em desenvolver um aplicativo menor sem a utilização de banco de dados, salvando tudo em memória, até por isso um dos requisitos desse primeiro projeto é o de ser algo para uso pessoal.
-Desenvolido todo em java Android Studio.</p>	
+<p>Esse projeto Foi desenvolvido para a disciplina de desenvolvimento de programação de dispositivos móveis, a primeira parte da discplina consiste em desenvolver um aplicativo utilizando SQLite para banco de dados, spinner entre outros elementos.
+Desenvolido em Java & Android Studio.</p>	
 
 <h2 id="tecnologias">Tecnologias Usadas:</h2>
 
@@ -45,8 +44,8 @@ Implementação de datas, Spinner Calendário.
  <li> TargetSDK Version para a API Level 30 (Android 11.0) ou superior.</li> 
 </ul>
 
-##### Autor do Projeto: Alécio L. Medeiros
- 
-  </a>   
-  </a>   
-</p>
+---
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
