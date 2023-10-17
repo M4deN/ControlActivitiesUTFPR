@@ -21,7 +21,7 @@ Desenvolido em Java & Android Studio.</p>
 <p>
   <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-plain.svg" alt="VSCode" width="40" height="40"/><img                                       </p>
 
-<h2 id="sessao">Sessão do Projeto:</h2>
+<h2 id="sessao">Sessões do Projeto:</h2>
 
 <h3>Tela Principal:</h3>
 
