@@ -16,10 +16,13 @@
 <p>Esse projeto Foi desenvolvido para a disciplina de desenvolvimento de programação de dispositivos móveis, a primeira parte da discplina consiste em desenvolver um aplicativo utilizando SQLite para banco de dados, spinner entre outros elementos.
 Desenvolido em Java & Android Studio.</p>	
 
-<h2 id="tecnologias">Tecnologias Usadas:</h2>
+<h2 id="tecnologias">Tecnologias:</h2>
 
 <p>
-  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-plain.svg" alt="VSCode" width="40" height="40"/><img                                       </p>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-plain.svg" alt="java" width="40" height="40"/><img    															    
+ <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/androidstudio/androidstudio-original.svg" alt="android" width="38" height="38"/><img    
+  
+  </p>
 
 <h2 id="sessao">Sessões do Projeto:</h2>
 
@@ -48,4 +51,4 @@ Implementação de datas, Spinner Calendário.
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
+Este projeto está licenciado sob a Licença MIT. [LICENSE](./LICENSE).
